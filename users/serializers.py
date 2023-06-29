@@ -10,8 +10,10 @@ class UserSerializer(serializers.ModelSerializer):
             "id",
             "type_user",
             "username",
+            "email",
             "password",
             "Books",
+            "Created_at",
         ]
         extra_kwargs = {
             "username": {
@@ -24,6 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
             },
             "password": {"write_only": True},
             "Books": {"read_only": True},
+            "Books": {"Created_at": True},
         }
 
     def create(self, validated_data: dict) -> User:
