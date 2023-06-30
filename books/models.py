@@ -11,5 +11,5 @@ class Books(models.Model):
     followers = models.ManyToManyField(
         "users.User",
         related_name="Books",
-        null=True,
+        
     )
