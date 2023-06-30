@@ -13,6 +13,7 @@ class userStatusOptions(models.TextChoices):
 
 
 class User(AbstractUser):
+    email = models.EmailField()
     Created_at = models.DateTimeField(auto_now_add=True)
 
     type_user = models.CharField(

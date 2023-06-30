@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
             "username",
             "email",
             "password",
-            "status",
+            # "status",
             "Books",
             "Created_at",
         ]
@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
             },
             "password": {"write_only": True},
             "Books": {"read_only": True},
-            "status": {"read_only": True},
+            # "status": {"read_only": True},
             "Created_at": {"read_only": True},
         }
 
