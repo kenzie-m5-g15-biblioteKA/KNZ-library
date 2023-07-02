@@ -10,14 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
 import os
-import dotenv
+from datetime import timedelta
+from pathlib import Path
+
 import dj_database_url
+import dotenv
 from django.core.management.utils import get_random_secret_key
 
 dotenv.load_dotenv()
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,29 +51,11 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-]
+THIRD_PARTY_APPS = ["rest_framework", "drf_spectacular"]
 
-THIRD_PARTY_APPS = [
-    "rest_framework",
-    "drf_spectacular",
-]
+MY_APPS = ["users", "books", "copies", "lending", "assessments"]
 
-MY_APPS = [
-    "users",
-    "books",
-    "copies",
-    "lending",
-    "assessments",
-]
-
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
+INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *MY_APPS]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -199,7 +182,7 @@ AUTH_USER_MODEL = "users.User"
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "KNZ Library",
-    "DESCRIPTION": "A API de gestão de biblioteca é um conjunto de endpoints que permite o empréstimo, devolução e controle de livros. Estudantes podem visualizar seu histórico de empréstimos e receber notificações sobre a disponibilidade dos livros. Colaboradores podem cadastrar novos livros, emprestá-los e verificar o histórico de empréstimos dos estudantes, etc. A API também oferece recursos adicionais, como avaliações de livros, periódo de empreéstimo personalizado. Ela pode ser adaptada para ser utilizada por várias bibliotecas simultaneamente. Essa aplicação também pode ser executada localmente usando algum host local (http://localhost:8000)por exemplo",
+    "DESCRIPTION": "A API de gestão de biblioteca é um conjunto de endpoints que permite o empréstimo, devolução e controle de livros. Estudantes podem visualizar seu histórico de empréstimos e receber notificações sobre a disponibilidade dos livros. Colaboradores podem cadastrar novos livros, emprestá-los e verificar o histórico de empréstimos dos estudantes, etc. A API também oferece recursos adicionais, como avaliações de livros, período de empréstimo personalizado. Ela pode ser adaptada para ser utilizada por várias bibliotecas simultaneamente. Essa aplicação também pode ser executada localmente usando algum host local (http://localhost:8000)por exemplo",
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
