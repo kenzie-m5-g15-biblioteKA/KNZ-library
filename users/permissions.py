@@ -10,7 +10,7 @@ class IsAccountOwner(permissions.BasePermission):
         return request.user.is_authenticated and obj == request.user
 
 
-class IsCollaborator(permissions.BasePermission):
+class IsStaff(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
@@ -20,7 +20,7 @@ class IsCollaborator(permissions.BasePermission):
         except:
             return False
 
-        if user.type_user == "Collaborator":
+        if user.type_user == "Staff":
             return True
 
         return False

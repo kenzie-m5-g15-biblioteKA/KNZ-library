@@ -12,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
             "username",
             "email",
             "password",
+            "status",
             "Books",
             "Created_at",
         ]
@@ -26,7 +27,8 @@ class UserSerializer(serializers.ModelSerializer):
             },
             "password": {"write_only": True},
             "Books": {"read_only": True},
-            "Books": {"Created_at": True},
+            "status": {"read_only": True},
+            "Created_at": {"read_only": True},
         }
 
     def create(self, validated_data: dict) -> User:

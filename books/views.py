@@ -5,12 +5,12 @@ from .models import Books
 from .serializers import BooksSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from users.permissions import IsCollaborator
+from users.permissions import IsStaff
 
 
 class BookView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsCollaborator]
+    permission_classes = [IsStaff]
 
     queryset = Books.objects.all()
     serializer_class = BooksSerializer
