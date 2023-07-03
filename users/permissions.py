@@ -1,4 +1,5 @@
 from rest_framework import permissions
+
 from .models import User
 
 
@@ -14,7 +15,7 @@ class IsStaff(permissions.BasePermission):
         except:
             return False
 
-        if user.type_user == "Staff":
+        if user.role == "Staff":
             return True
 
         return False
@@ -30,7 +31,7 @@ class IsStaffOrSafeMethods(permissions.BasePermission):
         except:
             return False
 
-        if user.type_user == "Staff":
+        if user.role == "Staff":
             return True
 
         return False

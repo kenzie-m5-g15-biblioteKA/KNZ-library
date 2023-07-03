@@ -2,8 +2,8 @@ from django.db import models
 
 
 class AvailabilityOptions(models.TextChoices):
-    unavailable = "unavaliable"
-    avaliable = "avaliable"
+    UNAVAILABLE = "unavailable"
+    AVAILABLE = "available"
 
 
 class Book(models.Model):
@@ -18,7 +18,7 @@ class Book(models.Model):
     availability = models.CharField(
         max_length=255,
         choices=AvailabilityOptions.choices,
-        default=AvailabilityOptions.avaliable,
+        default=AvailabilityOptions.AVAILABLE,
     )
 
     ranking = models.DecimalField(
