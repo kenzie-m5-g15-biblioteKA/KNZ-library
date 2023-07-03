@@ -13,6 +13,9 @@ class userStatusOptions(models.TextChoices):
 
 
 class User(AbstractUser):
+    class Meta:
+        ordering = ["id"]
+
     Created_at = models.DateTimeField(auto_now_add=True)
 
     type_user = models.CharField(
