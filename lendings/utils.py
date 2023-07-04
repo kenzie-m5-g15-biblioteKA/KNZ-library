@@ -1,8 +1,22 @@
+import os
 from datetime import date
 
+import holidays
+
+
 def working_day(date: date) -> bool:
-    """Returns boolean to date check if not weekend
-    :params
-        date: date format to check if is not weekend
+    """Verifies if a given date is a working day (not a weekend or holiday).
+
+    :param input_date: The date to check.
+    :type input_date: date
+
+    :return: True if the date is a working day, False otherwise.
+    :rtype: bool
     """
-    return date.weekday() < 5
+    country = os.getenv("COUNTRY", "BR")
+    country_holidays = holidays.country_holidays(country)
+
+    week_day = date.weekday() < 5
+    working_day = date not in country_holidays
+
+    return week_day and working_day

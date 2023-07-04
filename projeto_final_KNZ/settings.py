@@ -10,9 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
 import os
+from datetime import timedelta
+
 import dotenv
+from django.core.management.utils import get_random_secret_key
 
 dotenv.load_dotenv()
 from pathlib import Path
@@ -25,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-=_+iy+#sv&*+!$2o_dp$v0v216z7@mq=6un@h(8ya4ak=7o(dv"
+SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,24 +46,11 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-]
-
 THIRD_PARTY_APPS = ["rest_framework", "drf_spectacular"]
 
-MY_APPS = [
-    "users",
-    "books",
-    "copies",
-]
+MY_APPS = ["users", "books", "copies", "lendings"]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
+INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *MY_APPS]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
