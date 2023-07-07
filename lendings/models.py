@@ -6,6 +6,12 @@ from django.utils.timezone import now
 from .utils import working_day
 
 
+class LendingStatusChoice(models.TextChoices):
+    LENT = "lent"
+    OVERDUE = "overdue"
+    RETURNED = "returned"
+
+
 class Lending(models.Model):
     class Meta:
         ordering = ["id"]
@@ -17,6 +23,13 @@ class Lending(models.Model):
 
     lend_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True)
+    returned_date = models.DateField(null=True)
+
+    status = models.CharField(
+        max_length=10,
+        choices=LendingStatusChoice.choices,
+        default=LendingStatusChoice.LENT,
+    )
 
     def get_return_date(self) -> date:
         lend_date = now().date()
@@ -27,3 +40,17 @@ class Lending(models.Model):
             return_date += timedelta(days=1)
 
         return return_date
+
+    def get_return_book(self) -> None:
+        today = now().date()
+
+        self.returned_date = today
+        self.status = LendingStatusChoice.RETURNED
+        self.save()
+
+    def get_status(self) -> None:
+        today = now().date()
+
+        if today > self.return_date and self.status != LendingStatusChoice.RETURNED:
+            self.status = LendingStatusChoice.OVERDUE
+            self.save()
