@@ -8,6 +8,7 @@ from .models import Lending, LendingStatusChoice
 from .permissions import (
     CollaboratorOrOwnerPermission,
     CollaboratorPermission,
+    IsNotBlocked,
     SelfPermission,
 )
 from .serializers import LendingSerializer
@@ -15,7 +16,7 @@ from .serializers import LendingSerializer
 
 class LendingCreateView(generics.CreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsNotBlocked]
 
     queryset = Lending.objects.all()
     serializer_class = LendingSerializer
