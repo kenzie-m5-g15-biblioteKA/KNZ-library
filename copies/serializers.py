@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from copy_book.models import Copy
+from copies.models import Copy
 
 
 class CopySerializer(serializers.ModelSerializer):

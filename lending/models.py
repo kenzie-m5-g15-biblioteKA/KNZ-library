@@ -16,7 +16,7 @@ class Lending(models.Model):
     )
 
     copy = models.ForeignKey(
-        "copy_book.Copy",
+        "copies.Copy",
         related_name="lending",
         on_delete=models.CASCADE,
     )

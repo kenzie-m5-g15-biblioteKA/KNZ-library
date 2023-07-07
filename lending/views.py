@@ -3,10 +3,10 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import Response, status
 from books.models import Book
 from books.serializers import BookSerializer
-from copy_book.serializers import CopySerializer
+from copies.serializers import CopySerializer
 from users.models import User
 from users.serializers import UserSerializer, UserStatusSerializer
-from copy_book.models import Copy
+from copies.models import Copy
 from .models import Lending
 from .serializers import LendingsSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
