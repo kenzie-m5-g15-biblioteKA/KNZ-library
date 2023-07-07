@@ -1,12 +1,14 @@
-from rest_framework import generics
-from .models import Book
 from django.shortcuts import get_object_or_404
-from users.serializers import UserSerializer
-from .serializers import BookSerializer
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from users.permissions import IsStaff, IsStaffOrSafeMethods
 from drf_spectacular.utils import extend_schema
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from users.permissions import IsStaff, IsStaffOrSafeMethods
+from users.serializers import UserSerializer
+
+from .models import Book
+from .serializers import BookSerializer
 
 
 class BookView(generics.ListCreateAPIView):
