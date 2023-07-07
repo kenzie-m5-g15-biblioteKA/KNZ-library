@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from .models import Books
+
 from users.serializers import UserSerializer
+
+from .models import Book
 
 
 class BooksSerializer(serializers.ModelSerializer):
@@ -12,10 +14,10 @@ class BooksSerializer(serializers.ModelSerializer):
     #     return serializer.data
 
     def create(self, validated_data):
-        return Books.objects.create(**validated_data)
+        return Book.objects.create(**validated_data)
 
     class Meta:
-        model = Books
+        model = Book
         fields = [
             "id",
             "name",

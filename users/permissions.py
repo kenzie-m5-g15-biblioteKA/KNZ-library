@@ -1,6 +1,7 @@
 from rest_framework import permissions
-from .models import User
 from rest_framework.views import View
+
+from .models import User
 
 
 class IsAccountOwner(permissions.BasePermission):
@@ -20,7 +21,7 @@ class IsStaff(permissions.BasePermission):
         except:
             return False
 
-        if user.type_user == "Staff":
+        if user.role == "staff":
             return True
 
         return False

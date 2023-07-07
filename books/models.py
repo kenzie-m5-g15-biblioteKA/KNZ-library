@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class availabilityOptions(models.TextChoices):
+class AvailabilityChoice(models.TextChoices):
     unavailable = "unavailable"
     available = "available"
 
@@ -16,8 +16,8 @@ class Book(models.Model):
     publishing_company = models.CharField(max_length=100)
     availability = models.CharField(
         max_length=255,
-        choices=availabilityOptions.choices,
-        default=availabilityOptions.available,
+        choices=AvailabilityChoice.choices,
+        default=AvailabilityChoice.available,
     )
 
     followers = models.ManyToManyField(
