@@ -1,3 +1,4 @@
+APScheduler==3.10.1
 asgiref==3.7.2
 attrs==23.1.0
 Brotli==1.0.9
@@ -21,5 +22,6 @@ six==1.16.0
 sqlparse==0.4.4
 typing_extensions==4.7.0
 tzdata==2023.3
+tzlocal==5.0.1
 uritemplate==4.1.1
 whitenoise==6.5.0
