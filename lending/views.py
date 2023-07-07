@@ -14,6 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from users.permissions import IsStaff
 from datetime import timedelta
 from django.utils import timezone
+from drf_spectacular.utils import extend_schema
 
 
 class LendingView(generics.ListAPIView):
@@ -23,6 +24,12 @@ class LendingView(generics.ListAPIView):
     queryset = Lending.objects.all()
     serializer_class = LendingsSerializer
 
+    @extend_schema(
+        operation_id="Lending_GET",
+        description="Rota de listagem de emprestimos, retornando todos os emprestimos cadastrados no sistema.  É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Listagem de Emprestimos",
+        tags=["Lending"],
+    )
     def get(self, request, *args, **kwargs):
         self.check_object_permissions(request, request.user)
         return self.list(request, *args, **kwargs)
@@ -35,6 +42,15 @@ class CreateLendingView(generics.CreateAPIView):
     queryset = Lending.objects.all()
     serializer_class = LendingsSerializer
     lookup_url_kwarg = "pk"
+
+    @extend_schema(
+        operation_id="Lending_POST (ID da Copia)",
+        description="Rota de criação de emprestimos, retornando a emprestimo criada e adicionando-a no banco de dados. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Criação de Emprestimos",
+        tags=["Lending"],
+    )
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         user = request.data["user"]
@@ -125,6 +141,15 @@ class LendingDetailView(generics.ListAPIView):
     queryset = Lending.objects.all()
     serializer_class = LendingsSerializer
 
+    @extend_schema(
+        operation_id="Lending_GET (ID do Emprestimo)",
+        description="Rota de listagem de emprestimo, retornando o emprestimo cadastrado no sistema com o mesmo ID passado na URL. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Listagem de um Emprestimo Específico (ID do Emprestimo)",
+        tags=["Lending"],
+    )
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         user = request.user
@@ -155,6 +180,24 @@ class DevolutionLendingView(generics.UpdateAPIView):
     queryset = Lending.objects.all()
     serializer_class = LendingsSerializer
     lookup_url_kwarg = "pk"
+
+    @extend_schema(
+        operation_id="Lending_PUT (ID da Emprestimo)",
+        description="Rota de atualização do emprestimo, retornando o emprestimo atualizado no sistema com o mesmo ID passado na URL. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Atualização de um Emprestimo Específico (ID do Emprestimo)",
+        tags=["Lending"],
+    )
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    @extend_schema(
+        operation_id="Lending_PUT (ID da Emprestimo)",
+        description="Rota de atualização do emprestimo, retornando o emprestimo atualizado no sistema com o mesmo ID passado na URL. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Atualização de um Emprestimo Específico (ID do Emprestimo)",
+        tags=["Lending"],
+    )
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         user = request.data["user"]
@@ -225,6 +268,12 @@ class updateLendingView(generics.ListAPIView):
     queryset = Lending.objects.all()
     serializer_class = LendingsSerializer
 
+    @extend_schema(
+        operation_id="Lending_GET (ID da Emprestimo)",
+        description="Rota de verificação de Emprestimo, atualizando o status de todos os usuários com emprestimos caso seja necessário, retornando todos os Emprestimo cadastrados no sistema. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Atualização de Status de todos os Usuários Necessários",
+        tags=["Lending"],
+    )
     def get(self, request, *args, **kwargs):
         self.check_object_permissions(request, request.user)
 
@@ -273,3 +322,12 @@ class DeleteLendingView(generics.DestroyAPIView):
 
     queryset = Lending.objects.all()
     serializer_class = LendingsSerializer
+
+    @extend_schema(
+        operation_id="Lending_DELETE (ID do Emprestimo)",
+        description="Rota de deleção do emprestimo com o mesmo ID passado na URL, não retornando nada ao usuário. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Deleção de um Emprestimo Específico (ID do Emprestimo)",
+        tags=["Lending"],
+    )
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
