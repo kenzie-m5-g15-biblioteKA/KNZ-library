@@ -27,3 +27,5 @@ class User(AbstractUser):
         choices=userStatusOptions.choices,
         default=userStatusOptions.Active,
     )
+
+    unblocked_date = models.DateField(null=True)
