@@ -1,8 +1,9 @@
 from django.db import models
+
 from books.models import Book
 
 
-class Copies(models.Model):
+class Copy(models.Model):
     class Meta:
         ordering = ["id"]
 
