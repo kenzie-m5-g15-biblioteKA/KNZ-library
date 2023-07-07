@@ -17,9 +17,9 @@ class Lending(models.Model):
         ordering = ["id"]
 
     user = models.ForeignKey(
-        "users.User", on_delete=models.SET_NULL, related_name="lendings"
+        "users.User", on_delete=models.SET_NULL, related_name="lendings", null=True
     )
-    copy = models.ForeignKey("copies.Copy", on_delete=models.SET_NULL)
+    copy = models.ForeignKey("copies.Copy", on_delete=models.SET_NULL, null=True)
 
     lend_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True)
