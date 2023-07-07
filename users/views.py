@@ -5,6 +5,7 @@ from lending.models import Lending
 from .serializers import UserSerializer, UserStatusSerializer
 from .permissions import IsAccountOwner, IsStaff
 from rest_framework import generics
+from drf_spectacular.utils import extend_schema
 
 
 class UserView(generics.ListCreateAPIView):
@@ -13,7 +14,14 @@ class UserView(generics.ListCreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserStatusSerializer
+    user = "user"
 
+    @extend_schema(
+        operation_id="Users_get",
+        description="rota de listagem de usuarios",
+        summary="listagem de usuaroius",
+        tags=["user"],
+    )
     def get(self, request, *args, **kwargs):
         self.check_object_permissions(request, request.user)
         return self.list(request, *args, **kwargs)
