@@ -1,16 +1,31 @@
-from rest_framework import generics, permissions, views
+from django.shortcuts import get_object_or_404
+from rest_framework import permissions
+from rest_framework.generics import ListAPIView, UpdateAPIView
+from rest_framework.views import Request
+
+from lendings.models import Lending
+from users.models import User
 
 
-class CollaboratorOrOwnerPermission(permissions.IsAuthenticated):
-    def has_permission(self, request: views.Request, view: generics.ListAPIView):
+class CollaboratorOrOwnerPermission(permissions.BasePermission):
+    def has_permission(self, request: Request, view: ListAPIView) -> bool:
         user_id: int = view.kwargs.get(view.lookup_url_kwarg)
+        searched_user = get_object_or_404(User, pk=user_id)
+        searched_user_role: bool = searched_user.role
 
-        if request.user.role == "student":
-            return request.user.role == "staff" or request.user.id == user_id
+        if searched_user_role == "student":
+            return request.user.role == "staff" or request.user == searched_user
 
-        return request.user.id == user_id
+        return request.user == searched_user
 
 
-class CollaboratorPermission(permissions.IsAuthenticated):
-    def has_permission(self, request: views.Request, view: generics.ListAPIView):
+class CollaboratorPermission(permissions.BasePermission):
+    def has_permission(self, request: Request, view: ListAPIView) -> bool:
         return request.user.role == "staff"
+
+
+class SelfPermission(permissions.BasePermission):
+    def has_object_permission(
+        self, request: Request, view: UpdateAPIView, obj: Lending
+    ) -> bool:
+        return obj.user == request.user
