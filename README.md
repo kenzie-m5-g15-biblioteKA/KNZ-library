@@ -37,7 +37,33 @@ Após isso você terá uma copia totalmente editavel de todo o projeto em sua ma
 
 ## 📦 Implantação
 
-Adicione notas adicionais sobre como implantar isso em um sistema ativo
+Procedimentos para rodar o projeto localmente 
+
+Criando o ambiente virtual
+
+```
+Na raiz do projeto abra o terminal e crie o ambiente virtual com o comando python -m venv venv
+Em seguida entre nesse ambiente com o comando .\venv\Scripts\activate
+```
+
+Instalando as dependências necessárias
+
+```
+Na raiz do projeto abra o terminal e instale as dependências do projeto com o comando pip install -r requirements.txtv
+```
+Manipulando o arquivo .env
+
+```
+Na raiz do projeto crie um arquivo chamado .env e dentro dele crie as variáveis de ambiente seguindo o padrão do arquivo .venv.example
+
+Configure suas variáveis de ambiente com suas credenciais do PostgresSQL e um novo banco de dados para estar utilizando no projeto.
+```
+
+executando as migrates
+
+```
+Na raiz do projeto abra o terminal e execute as migrações com o comando python manage.py migrate
+```
 
 ## 🛠️ Construído com
 
@@ -47,34 +73,15 @@ Mencione as ferramentas que você usou para criar seu projeto
 * [Maven](https://maven.apache.org/) - Gerente de Dependência
 * [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
 
-## 🖇️ Colaborando
 
-Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoSobreContribuicoes) para obter detalhes sobre o nosso código de conduta e o processo para nos enviar pedidos de solicitação.
-
-## 📌 Versão
-
-Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/suas/tags/do/projeto). 
 
 ## ✒️ Autores
 
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
+A API de gestão de biblioteca foi desenvolvida por uma equipe de desenvolvedores altamente qualificados. Aqui estão os desenvolvedores responsáveis pelo projeto:
 
-* **Um desenvolvedor** - *Trabalho Inicial* - [umdesenvolvedor](https://github.com/linkParaPerfil)
-* **Fulano De Tal** - *Documentação* - [fulanodetal](https://github.com/linkParaPerfil)
-
-Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
-
-## 📄 Licença
-
-Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
-
-## 🎁 Expressões de gratidão
-
-* Conte a outras pessoas sobre este projeto 📢;
-* Convide alguém da equipe para uma cerveja 🍺;
-* Um agradecimento publicamente 🫂;
-* etc.
+* **Rafael Rocha** - [umdesenvolvedor](https://github.com/Rafaelgot10)
+* **Hanna Boppe** - [umdesenvolvedor](https://github.com/hboppe)
+* **Maksuel Nascimento**  - [umdesenvolvedor](https://github.com/mk-nascimento)
+* **Diego Carvalho** - [umdesenvolvedor](https://github.com/Diegaum87)
 
 
----
-⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊
