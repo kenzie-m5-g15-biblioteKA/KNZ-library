@@ -86,6 +86,7 @@ A API de gestão de biblioteca foi desenvolvida por uma equipe de desenvolvedore
 *  [Hanna Boppe](https://github.com/hboppe)
 *  [Maksuel Nascimento](https://github.com/mk-nascimento)
 *  [Diego Carvalho](https://github.com/Diegaum87)
+  
 Se você tiver alguma dúvida, sugestão ou feedback sobre a API,
 sinta-se à vontade para entrar em contato com qualquer um dos desenvolvedores mencionados acima.
 Eles terão prazer em ajudar e ouvir suas opiniões.
