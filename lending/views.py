@@ -15,6 +15,8 @@ from users.permissions import IsStaff
 from datetime import timedelta
 from django.utils import timezone
 from drf_spectacular.utils import extend_schema
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class LendingView(generics.ListAPIView):
@@ -299,6 +301,14 @@ class updateLendingView(generics.ListAPIView):
                 user.is_valid(raise_exception=True)
                 user.save()
 
+                send_mail(
+                    subject="Bloqueio de emprestimos KNZ Library",
+                    message="Sua conta agora está bloqueada impossibilitando o emprestimo de novos livros em nossa livrária!!",
+                    recipient_list=[user["emeil"]],
+                    from_email=settings.EMAIL_HOST_USER,
+                    fail_silently=False,
+                )
+
             if item.user.unblocked_date != None:
                 if item.user.unblocked_date <= current_day:
                     validated_data = {
@@ -314,6 +324,14 @@ class updateLendingView(generics.ListAPIView):
                     )
                     user.is_valid(raise_exception=True)
                     user.save()
+
+                    send_mail(
+                        subject="Desbloqueio de emprestimos KNZ Library",
+                        message="Sua conta agora está apta para realizar emprestimos em nossa livrária aproveite!!",
+                        recipient_list=[user["emeil"]],
+                        from_email=settings.EMAIL_HOST_USER,
+                        fail_silently=False,
+                    )
 
         return self.list(request, *args, **kwargs)
 

@@ -196,9 +196,15 @@ AUTH_USER_MODEL = "users.User"
 
 # CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers.DatabaseScheduler"
 
-# APSCHEDULER_RUN_NOW_TIMEOUT = 25
-# APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "KNZ Library",
     "DESCRIPTION": "A API de gestão de biblioteca é um conjunto de endpoints que permite o empréstimo, devolução e controle de livros. Estudantes podem visualizar seu histórico de empréstimos e receber notificações sobre a disponibilidade dos livros. Colaboradores podem cadastrar novos livros, emprestá-los e verificar o histórico de empréstimos dos estudantes, etc. A API também oferece recursos adicionais, como avaliações de livros, periódo de empreéstimo personalizado. Ela pode ser adaptada para ser utilizada por várias bibliotecas simultaneamente. Essa aplicação também pode ser executada localmente usando algum host local (http://localhost:8000)por exemplo",
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
