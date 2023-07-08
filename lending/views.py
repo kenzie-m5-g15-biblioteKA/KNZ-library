@@ -8,7 +8,7 @@ from users.models import User
 from users.serializers import UserSerializer, UserStatusSerializer
 from copies.models import Copy
 from .models import Lending
-from .serializers import LendingsSerializer
+from .serializers import LendingsCreateSerializer, LendingsUpdateSerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from users.permissions import IsStaff
@@ -22,7 +22,7 @@ class LendingView(generics.ListAPIView):
     permission_classes = [IsStaff]
 
     queryset = Lending.objects.all()
-    serializer_class = LendingsSerializer
+    serializer_class = LendingsCreateSerializer
 
     @extend_schema(
         operation_id="Lending_GET",
@@ -40,7 +40,7 @@ class CreateLendingView(generics.CreateAPIView):
     permission_classes = [IsStaff]
 
     queryset = Lending.objects.all()
-    serializer_class = LendingsSerializer
+    serializer_class = LendingsCreateSerializer
     lookup_url_kwarg = "pk"
 
     @extend_schema(
@@ -139,7 +139,7 @@ class LendingDetailView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     queryset = Lending.objects.all()
-    serializer_class = LendingsSerializer
+    serializer_class = LendingsCreateSerializer
 
     @extend_schema(
         operation_id="Lending_GET (ID do Emprestimo)",
@@ -158,7 +158,7 @@ class LendingDetailView(generics.ListAPIView):
         response = []
 
         for item in queryset:
-            item = LendingsSerializer(instance=item)
+            item = LendingsCreateSerializer(instance=item)
 
             if item.data["user"]["username"] == user.data["username"]:
                 response.append(item.data)
@@ -178,7 +178,7 @@ class DevolutionLendingView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     queryset = Lending.objects.all()
-    serializer_class = LendingsSerializer
+    serializer_class = LendingsCreateSerializer
     lookup_url_kwarg = "pk"
 
     @extend_schema(
@@ -265,18 +265,17 @@ class updateLendingView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsStaff]
 
-    queryset = Lending.objects.all()
-    serializer_class = LendingsSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
     @extend_schema(
         operation_id="Lending_GET (ID da Emprestimo)",
-        description="Rota de verificação de Emprestimo, atualizando o status de todos os usuários com emprestimos caso seja necessário, retornando todos os Emprestimo cadastrados no sistema. É necessário estar autenticado como colaborador para acessar essa rota",
+        description="Rota de verificação de Emprestimo, atualizando o status de todos os usuários com emprestimos caso seja necessário, retornando todos os usuários cadastrados no sistema. É necessário estar autenticado como colaborador para acessar essa rota",
         summary="Atualização de Status de todos os Usuários Necessários",
         tags=["Lending"],
     )
     def get(self, request, *args, **kwargs):
         self.check_object_permissions(request, request.user)
-
         lendings = Lending.objects.all()
 
         current_day = timezone.now()
@@ -302,7 +301,10 @@ class updateLendingView(generics.ListAPIView):
 
             if item.user.unblocked_date != None:
                 if item.user.unblocked_date <= current_day:
-                    validated_data = {"status": "Active"}
+                    validated_data = {
+                        "status": "Active",
+                        "unblocked_date": None,
+                    }
 
                     user = item.user
                     user = UserStatusSerializer(
@@ -316,12 +318,39 @@ class updateLendingView(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class DeleteLendingView(generics.DestroyAPIView):
+class DeleteLendingView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsStaff]
 
     queryset = Lending.objects.all()
-    serializer_class = LendingsSerializer
+    serializer_class = LendingsUpdateSerializer
+
+    @extend_schema(
+        operation_id="Lending_GET (ID do Emprestimo)",
+        description="Rota de vizualização de emprestimo, retornando o emprestimo com o mesmo ID passado na URL. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Vizualização de um Emprestimo Específico (ID do Emprestimo)",
+        tags=["Lending"],
+    )
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    @extend_schema(
+        operation_id="Lending_PUT (ID do Emprestimo)",
+        description="Rota de atualização do emprestimo, retornando o emprestimo com o mesmo ID passado na URL. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Atualização de um Emprestimo Específico (ID do Emprestimo)",
+        tags=["Lending"],
+    )
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    @extend_schema(
+        operation_id="Lending_PATCH (ID do Emprestimo)",
+        description="Rota de atualização do emprestimo, retornando o emprestimo com o mesmo ID passado na URL. É necessário estar autenticado como colaborador para acessar essa rota",
+        summary="Atualização de um Emprestimo Específico (ID do Emprestimo)",
+        tags=["Lending"],
+    )
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
     @extend_schema(
         operation_id="Lending_DELETE (ID do Emprestimo)",
