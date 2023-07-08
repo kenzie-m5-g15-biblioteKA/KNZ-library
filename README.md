@@ -71,6 +71,12 @@ Mencione as ferramentas que você usou para criar seu projeto
 
 * [Django](https://www.djangoproject.com) - O framework web usado
 * [Python](https://www.python.org) - Linguagem de programação
+* [PostgreSQL](https://www.postgresql.org) - Gerenciador de banco de dados
+* [Render](https://www.render.com) - Serviço de hospedagem
+
+Se você tiver alguma dúvida, sugestão ou feedback sobre a API,
+sinta-se à vontade para entrar em contato com qualquer um dos desenvolvedores mencionados acima.
+Eles terão prazer em ajudar e ouvir suas opiniões.
 
 
 
