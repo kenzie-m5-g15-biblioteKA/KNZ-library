@@ -69,9 +69,8 @@ Na raiz do projeto abra o terminal e execute as migrações com o comando python
 
 Mencione as ferramentas que você usou para criar seu projeto
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
-* [Maven](https://maven.apache.org/) - Gerente de Dependência
-* [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
+* [Django](https://www.djangoproject.com) - O framework web usado
+* [Python](https://www.python.org) - Linguagem de programação
 
 
 
