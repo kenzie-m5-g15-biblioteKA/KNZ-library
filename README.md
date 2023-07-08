@@ -79,9 +79,9 @@ Mencione as ferramentas que você usou para criar seu projeto
 
 A API de gestão de biblioteca foi desenvolvida por uma equipe de desenvolvedores altamente qualificados. Aqui estão os desenvolvedores responsáveis pelo projeto:
 
-* **Rafael Rocha** - [Rafael Rocha](https://github.com/Rafaelgot10)
-* **Hanna Boppe** - [Hanna Boppe](https://github.com/hboppe)
-* **Maksuel Nascimento**  - [Maksuel Nascimento](https://github.com/mk-nascimento)
-* **Diego Carvalho** - [Diego Carvalho](https://github.com/Diegaum87)
+*  [Rafael Rocha](https://github.com/Rafaelgot10)
+*  [Hanna Boppe](https://github.com/hboppe)
+*  [Maksuel Nascimento](https://github.com/mk-nascimento)
+*  [Diego Carvalho](https://github.com/Diegaum87)
 
 
