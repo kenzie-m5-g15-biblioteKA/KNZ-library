@@ -200,5 +200,5 @@ AUTH_USER_MODEL = "users.User"
 # APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 SPECTACULAR_SETTINGS = {
     "TITLE": "KNZ Library",
-    "DESCRIPTION": "API desenvolvida para gerenciamento de livros ",
+    "DESCRIPTION": "A API de gestão de biblioteca é um conjunto de endpoints que permite o empréstimo, devolução e controle de livros. Estudantes podem visualizar seu histórico de empréstimos e receber notificações sobre a disponibilidade dos livros. Colaboradores podem cadastrar novos livros, emprestá-los e verificar o histórico de empréstimos dos estudantes, etc. A API também oferece recursos adicionais, como avaliações de livros, periódo de empreéstimo personalizado. Ela pode ser adaptada para ser utilizada por várias bibliotecas simultaneamente. Essa aplicação também pode ser executada localmente usando algum host local (http://localhost:8000)por exemplo",
 }
