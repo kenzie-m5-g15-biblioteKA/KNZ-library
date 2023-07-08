@@ -1,11 +1,14 @@
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from books.models import Book
+from books.serializers import BookSerializer
 from .models import Copy
 from .serializers import CopySerializer
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from users.permissions import IsStaff, IsStaffOrSafeMethods
 from drf_spectacular.utils import extend_schema
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 class CopyView(generics.ListAPIView):
@@ -45,6 +48,21 @@ class CreateCopyView(generics.CreateAPIView):
     def perform_create(self, serializer):
         self.check_object_permissions(self.request, self.request.user)
         book = get_object_or_404(Book, pk=self.kwargs.get("pk"))
+
+        book_instance = BookSerializer(instance=book)
+        followers = book_instance.data["followers"]
+        for item in followers:
+            username = item["username"]
+            email = item["email"]
+
+            send_mail(
+                subject="KNZ Library - Novo lote recebido",
+                message=f"Olá {username} o livro {book_instance.data['title']} que vc está seguindo acabou de receber uma nova remessa aproveite !!",
+                recipient_list=[email],
+                from_email=settings.EMAIL_HOST_USER,
+                fail_silently=False,
+            )
+
         serializer.save(book=book)
 
 

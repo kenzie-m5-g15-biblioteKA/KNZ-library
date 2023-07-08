@@ -303,8 +303,8 @@ class updateLendingView(generics.ListAPIView):
 
                 send_mail(
                     subject="Bloqueio de emprestimos KNZ Library",
-                    message="Sua conta agora está bloqueada impossibilitando o emprestimo de novos livros em nossa livrária!!",
-                    recipient_list=[user["emeil"]],
+                    message="Sua conta agora está bloqueada impossibilitando o emprestimo de novos livros em nossa livrária",
+                    recipient_list=[user.data["email"]],
                     from_email=settings.EMAIL_HOST_USER,
                     fail_silently=False,
                 )

@@ -198,6 +198,8 @@ class BookUnfollowView(generics.UpdateAPIView):
         aux = False
         response = []
 
+        # print(book.data["followers"])
+
         for item in book.data["followers"]:
             response.append(item["id"])
 
