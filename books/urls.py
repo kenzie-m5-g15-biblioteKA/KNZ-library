@@ -1,6 +1,11 @@
 from django.urls import path
 from assessments.views import CreateAssessmentsView
-from .views import BookView, BookDetailView, BookFollowView, BookUnfollowView
+from .views import (
+    BookView,
+    BookDetailView,
+    BookFollowView,
+    BookUnfollowView,
+)
 
 
 urlpatterns = [

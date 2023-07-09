@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import UserDetailView, UserView, UserDeleteView
 from rest_framework_simplejwt import views as jwt_views
+from .views import (
+    UserDetailView,
+    UserView,
+    UserDeleteView,
+)
 
 urlpatterns = [
     path("users/", UserView.as_view()),

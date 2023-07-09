@@ -301,6 +301,15 @@ class updateLendingView(generics.ListAPIView):
                 user.is_valid(raise_exception=True)
                 user.save()
 
+                traffic_ticket = {"traffic_ticket": " R$50,00"}
+                lending = LendingsUpdateSerializer(
+                    instance=item,
+                    data=traffic_ticket,
+                    partial=True,
+                )
+                lending.is_valid(raise_exception=True)
+                lending.save()
+
                 send_mail(
                     subject="Bloqueio de emprestimos KNZ Library",
                     message="Sua conta agora está bloqueada impossibilitando o emprestimo de novos livros em nossa livrária",
@@ -336,7 +345,7 @@ class updateLendingView(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class DeleteLendingView(generics.RetrieveUpdateDestroyAPIView):
+class DeleteRetriveUpdateLendingView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsStaff]
 

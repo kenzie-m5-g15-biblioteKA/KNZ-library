@@ -5,7 +5,7 @@ from .views import (
     LendingDetailView,
     DevolutionLendingView,
     updateLendingView,
-    DeleteLendingView,
+    DeleteRetriveUpdateLendingView,
 )
 
 
@@ -15,5 +15,5 @@ urlpatterns = [
     path("user/lending/", LendingDetailView.as_view()),
     path("user/lending/<int:pk>/", DevolutionLendingView.as_view()),
     path("lending/update/", updateLendingView.as_view()),
-    path("lending/<int:pk>/", DeleteLendingView.as_view()),
+    path("lending/<int:pk>/", DeleteRetriveUpdateLendingView.as_view()),
 ]

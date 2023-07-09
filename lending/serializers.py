@@ -13,6 +13,7 @@ class LendingsCreateSerializer(serializers.ModelSerializer):
             "created_at",
             "return_date",
             "returned_date",
+            "traffic_ticket",
             "user",
             "copy",
         ]
@@ -35,6 +36,7 @@ class LendingsUpdateSerializer(serializers.ModelSerializer):
             "created_at",
             "return_date",
             "returned_date",
+            "traffic_ticket",
             "user",
             "copy",
         ]

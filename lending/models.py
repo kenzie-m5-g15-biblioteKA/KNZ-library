@@ -8,6 +8,7 @@ class Lending(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     return_date = models.DateField()
     returned_date = models.DateField(null=True)
+    traffic_ticket = models.CharField(max_length=255, null=True)
 
     user = models.ForeignKey(
         "users.User",
