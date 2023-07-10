@@ -24,6 +24,7 @@ class Lending(models.Model):
     lend_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True)
     returned_date = models.DateField(null=True)
+    traffic_ticket = models.CharField(max_length=255, null=True)
 
     status = models.CharField(
         max_length=10,

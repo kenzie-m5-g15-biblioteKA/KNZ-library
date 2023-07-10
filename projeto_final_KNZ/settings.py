@@ -53,7 +53,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = ["rest_framework", "drf_spectacular"]
 
-MY_APPS = ["users", "books", "copies", "lending", "assessments"]
+MY_APPS = ["users", "books", "copies", "lendings", "assessments"]
 
 INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *MY_APPS]
 

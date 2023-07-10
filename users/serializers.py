@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
             "email",
             "password",
             "books",
-            "lending",
+            "lendings",
             "created_at",
             "assessments",
         ]
@@ -76,7 +76,7 @@ class UserStatusSerializer(serializers.ModelSerializer):
             "password",
             "status",
             "books",
-            "lending",
+            "lendings",
             "created_at",
             "unblocked_date",
         ]

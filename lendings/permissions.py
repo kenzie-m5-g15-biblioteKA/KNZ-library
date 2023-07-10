@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
-from rest_framework.generics import ListAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView
 from rest_framework.views import Request
 
 from lendings.models import Lending

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from copies.models import Copy
 
 
@@ -8,12 +9,8 @@ class CopySerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "copies",
-            "lending",
             "book",
             "description",
         ]
+        read_only_field = ["book"]
         depth = 1
-        extra_kwargs = {
-            "lending": {"read_only": True},
-            "book": {"read_only": True},
-        }
