@@ -74,8 +74,8 @@ Ferramentas e tecnologias usadas na criação do projeto
 * [PostgreSQL](https://www.postgresql.org) - Gerenciador de banco de dados
 * [Render](https://www.render.com) - Serviço de hospedagem
 * [Insomnia](https://insomnia.rest) - Software para debug de requisições HTTP
+* [VScode](https://code.visualstudio.com) - Editor de texto (IDE)
 
-* 
 
 
 
