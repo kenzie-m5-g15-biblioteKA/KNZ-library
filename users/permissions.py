@@ -15,7 +15,7 @@ class IsStaff(permissions.BasePermission):
         except:
             return False
 
-        if user.role == "Staff":
+        if user.role == "staff":
             return True
 
         return False
@@ -31,7 +31,7 @@ class IsStaffOrSafeMethods(permissions.BasePermission):
         except:
             return False
 
-        if user.role == "Staff":
+        if user.role == "staff":
             return True
 
         return False

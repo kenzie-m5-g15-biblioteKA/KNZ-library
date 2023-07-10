@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
+
 from assessments.models import Assessments
+
 from .models import User
 
 
@@ -20,15 +22,16 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "id",
-            "type_user",
+            "role",
             "username",
             "email",
             "password",
-            "Books",
+            "books",
             "lending",
-            "Created_at",
+            "created_at",
             "assessments",
         ]
+        read_only_fields = ["books", "created_at"]
         extra_kwargs = {
             "username": {
                 "validators": [
@@ -39,10 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
                 ],
             },
             "password": {"write_only": True},
-            "Books": {"read_only": True},
-            "Created_at": {"read_only": True},
         }
-
         depth = 1
 
     def create(self, validated_data: dict) -> User:
@@ -70,16 +70,17 @@ class UserStatusSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "id",
-            "type_user",
+            "role",
             "username",
             "email",
             "password",
             "status",
-            "Books",
+            "books",
             "lending",
-            "Created_at",
+            "created_at",
             "unblocked_date",
         ]
+        read_only_fields = ["books", "created_at", "lendings"]
         extra_kwargs = {
             "username": {
                 "validators": [
@@ -90,9 +91,6 @@ class UserStatusSerializer(serializers.ModelSerializer):
                 ],
             },
             "password": {"write_only": True},
-            "Books": {"read_only": True},
-            "lending": {"read_only": True},
-            "Created_at": {"read_only": True},
         }
 
     def create(self, validated_data: dict) -> User:

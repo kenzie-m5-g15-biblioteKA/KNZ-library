@@ -1,9 +1,10 @@
-from .models import User
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from .serializers import UserSerializer, UserStatusSerializer
-from .permissions import IsAccountOwner, IsStaff
-from rest_framework import generics
 from drf_spectacular.utils import extend_schema
+from rest_framework import generics
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from .models import User
+from .permissions import IsAccountOwner, IsStaff
+from .serializers import UserSerializer, UserStatusSerializer
 
 
 class UserView(generics.ListCreateAPIView):
