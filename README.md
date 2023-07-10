@@ -13,7 +13,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 De que coisas você precisa para instalar o software e como instalá-lo?
 
 ```
-Editor de texto (IDE) preferencialmente VScode já que foi nele que a aplicação foi desenvolvida
+Editor de texto (IDE) preferencialmente VScode pois foi nele que a aplicação foi desenvolvida
 Uma ferramenta de teste e depuração de APIs para testes (Opicional)
 ```
 
