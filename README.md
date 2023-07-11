@@ -13,7 +13,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 De que coisas você precisa para instalar o software e como instalá-lo?
 
 ```
-Editor de texto (IDE) preferencialmente VScode já que foi nele que a aplicação foi desenvolvida
+Editor de texto (IDE) preferencialmente VScode pois foi nele que a aplicação foi desenvolvida
 Uma ferramenta de teste e depuração de APIs para testes (Opicional)
 ```
 
@@ -43,18 +43,20 @@ Criando o ambiente virtual
 
 ```
 Na raiz do projeto abra o terminal e crie o ambiente virtual com o comando python -m venv venv
-Em seguida entre nesse ambiente com o comando .\venv\Scripts\activate
+Em seguida entre nesse ambiente com um dos comandos:
+.\venv\Scripts\activate # windows
+source ./venv/bin/activate # linux
 ```
 
 Instalando as dependências necessárias
 
 ```
-Na raiz do projeto abra o terminal e instale as dependências do projeto com o comando pip install -r requirements.txtv
+Na raiz do projeto abra o terminal e instale as dependências do projeto com o comando make install
 ```
 Manipulando o arquivo .env
 
 ```
-Na raiz do projeto crie um arquivo chamado .env e dentro dele crie as variáveis de ambiente seguindo o padrão do arquivo .venv.example
+Na raiz do projeto crie um arquivo chamado .env e dentro dele crie as variáveis de ambiente seguindo o padrão do arquivo .env.example
 
 Configure suas variáveis de ambiente com suas credenciais do PostgresSQL e um novo banco de dados para estar utilizando no projeto.
 ```
@@ -62,7 +64,7 @@ Configure suas variáveis de ambiente com suas credenciais do PostgresSQL e um n
 executando as migrates
 
 ```
-Na raiz do projeto abra o terminal e execute as migrações com o comando python manage.py migrate
+Na raiz do projeto abra o terminal e execute as migrações com o comando make migrate
 ```
 
 ## 🛠️ Construído com
@@ -74,8 +76,8 @@ Ferramentas e tecnologias usadas na criação do projeto
 * [PostgreSQL](https://www.postgresql.org) - Gerenciador de banco de dados
 * [Render](https://www.render.com) - Serviço de hospedagem
 * [Insomnia](https://insomnia.rest) - Software para debug de requisições HTTP
+* [VScode](https://code.visualstudio.com) - Editor de texto (IDE)
 
-* 
 
 
 
@@ -93,4 +95,3 @@ A API de gestão de biblioteca foi desenvolvida por uma equipe de desenvolvedore
 Se você tiver alguma dúvida, sugestão ou feedback sobre a API,
 sinta-se à vontade para entrar em contato com qualquer um dos desenvolvedores mencionados acima.
 Eles terão prazer em ajudar e ouvir suas opiniões.
-
