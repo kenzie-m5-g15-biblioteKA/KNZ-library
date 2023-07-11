@@ -13,7 +13,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 De que coisas você precisa para instalar o software e como instalá-lo?
 
 ```
-Editor de texto (IDE) preferencialmente VScode já que foi nele que a aplicação foi desenvolvida
+Editor de texto (IDE) preferencialmente VScode pois foi nele que a aplicação foi desenvolvida
 Uma ferramenta de teste e depuração de APIs para testes (Opicional)
 ```
 
@@ -67,12 +67,15 @@ Na raiz do projeto abra o terminal e execute as migrações com o comando python
 
 ## 🛠️ Construído com
 
-Mencione as ferramentas que você usou para criar seu projeto
+Ferramentas e tecnologias usadas na criação do projeto
 
 * [Django](https://www.djangoproject.com) - O framework web usado
 * [Python](https://www.python.org) - Linguagem de programação
 * [PostgreSQL](https://www.postgresql.org) - Gerenciador de banco de dados
 * [Render](https://www.render.com) - Serviço de hospedagem
+* [Insomnia](https://insomnia.rest) - Software para debug de requisições HTTP
+* [VScode](https://code.visualstudio.com) - Editor de texto (IDE)
+
 
 
 
