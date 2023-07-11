@@ -4,7 +4,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import Request
 
 from lendings.models import Lending
-from users.models import User
+from users.models import User, UserStatusChoice
 
 
 class CollaboratorOrOwnerPermission(permissions.BasePermission):
@@ -30,4 +30,4 @@ class SelfPermission(permissions.BasePermission):
 
 class IsNotBlocked(permissions.BasePermission):
     def has_permission(self, request: Request, view):
-        return request.user.status == "active"
+        return request.user.status == UserStatusChoice.ACTIVE

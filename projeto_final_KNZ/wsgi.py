@@ -11,10 +11,12 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-from lendings.scheduler import run_scheduler
+from lendings.scheduler import run_lending_scheduler
+from users.scheduler import run_user_scheduler
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "projeto_final_KNZ.settings")
 
 application = get_wsgi_application()
 
-run_scheduler()
+run_lending_scheduler()
+run_user_scheduler()

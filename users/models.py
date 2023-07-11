@@ -30,5 +30,5 @@ class User(AbstractUser):
         default=UserStatusChoice.ACTIVE,
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
     unblocked_date = models.DateField(null=True)
