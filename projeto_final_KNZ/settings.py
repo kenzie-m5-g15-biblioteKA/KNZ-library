@@ -10,12 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
 import os
+from datetime import timedelta
+from pathlib import Path
+
+import dj_database_url
 import dotenv
+from django.core.management.utils import get_random_secret_key
 
 dotenv.load_dotenv()
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,13 +28,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-=_+iy+#sv&*+!$2o_dp$v0v216z7@mq=6un@h(8ya4ak=7o(dv"
+SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS += [RENDER_EXTERNAL_HOSTNAME, "0.0.0.0"]
 
 # Application definition
 
@@ -44,26 +51,15 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-]
-
 THIRD_PARTY_APPS = ["rest_framework", "drf_spectacular"]
 
-MY_APPS = [
-    "users",
-    "books",
-]
+MY_APPS = ["users", "books", "copies", "lendings", "assessments"]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
+INSTALLED_APPS = [*DJANGO_APPS, *THIRD_PARTY_APPS, *MY_APPS]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -111,6 +107,20 @@ DATABASES = {
     },
 }
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=500,
+        ssl_require=True,
+    )
+    DATABASES["default"].update(db_from_env)
+    DEBUG = False
+
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -138,7 +148,7 @@ SIMPLE_JWT = {
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 2,
+    "PAGE_SIZE": 5,
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -166,3 +176,18 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
+
+# CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers.DatabaseScheduler"
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "KNZ Library",
+    "DESCRIPTION": "A API de gestão de biblioteca é um conjunto de endpoints que permite o empréstimo, devolução e controle de livros. Estudantes podem visualizar seu histórico de empréstimos e receber notificações sobre a disponibilidade dos livros. Colaboradores podem cadastrar novos livros, emprestá-los e verificar o histórico de empréstimos dos estudantes, etc. A API também oferece recursos adicionais, como avaliações de livros, período de empréstimo personalizado. Ela pode ser adaptada para ser utilizada por várias bibliotecas simultaneamente. Essa aplicação também pode ser executada localmente usando algum host local (http://localhost:8000) por exemplo",
+}
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
