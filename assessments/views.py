@@ -1,6 +1,7 @@
 from rest_framework import generics
 from books.models import Book
 from books.serializers import BookSerializer
+from rest_framework.views import Response, status
 from .models import Assessments
 from django.shortcuts import get_object_or_404
 from .serializers import AssessmentsSerializer
@@ -24,6 +25,28 @@ class CreateAssessmentsView(generics.CreateAPIView):
         tags=["Assessments"],
     )
     def post(self, request, *args, **kwargs):
+        user = self.request.user
+
+        pk = self.kwargs.get("pk")
+
+        book = get_object_or_404(Book, pk=pk)
+        book_data = BookSerializer(instance=book)
+        book_data = book_data.data
+
+        assessments = Assessments.objects.all()
+        assessments = AssessmentsSerializer(
+            instance=assessments,
+            many=True,
+        )
+        assessments = assessments.data
+
+        for item in assessments:
+            if item["user"]["id"] == user.id and item["book"]["id"] == book_data["id"]:
+                return Response(
+                    {"message": "você já enviou uma avaliação para este livro"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
         return self.create(request, *args, **kwargs)
 
     def perform_create(self, serializer):

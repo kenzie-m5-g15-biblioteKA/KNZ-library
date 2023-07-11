@@ -63,13 +63,15 @@ class CreateLendingView(generics.CreateAPIView):
 
         if user.status == "Blocked":
             return Response(
-                {"Message": "Este usuario esta broqueado meu bom"},
+                {
+                    "Message": "Este usuário esta bloqueado e imposibilitado de emprestar novos livros"
+                },
                 status.HTTP_400_BAD_REQUEST,
             )
 
         if book.availability == "unavaliable":
             return Response(
-                {"Message": "Este livro nao esta disponivel para emprestimo meu bom"},
+                {"Message": "Este livro não está disponivel para empréstimo"},
                 status.HTTP_400_BAD_REQUEST,
             )
 
@@ -232,7 +234,7 @@ class DevolutionLendingView(generics.UpdateAPIView):
         if lending.returned_date != None:
             return Response(
                 {
-                    "Message": "você não pode devolver livros que você ja devolveu meu bom"
+                    "Message": "você não pode devolver livros que você já tenha devolvido"
                 },
                 status.HTTP_400_BAD_REQUEST,
             )
@@ -240,7 +242,7 @@ class DevolutionLendingView(generics.UpdateAPIView):
         if user.id != lending.user.id:
             return Response(
                 {
-                    "Message": "você só pode devolver livros que você tenha pego emprestado meu bom"
+                    "Message": "você só pode devolver livros que você tenha pego emprestado"
                 },
                 status.HTTP_400_BAD_REQUEST,
             )
