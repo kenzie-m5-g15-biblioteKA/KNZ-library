@@ -1,16 +1,34 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
-class userOptions(models.TextChoices):
-    Student = "Student"
-    Collaborator = "Collaborator"
+class UserRoleChoice(models.TextChoices):
+    STUDENT = "student"
+    STAFF = "staff"
+
+
+class UserStatusChoice(models.TextChoices):
+    ACTIVE = "Active"
+    BLOCKED = "Blocked"
 
 
 class User(AbstractUser):
-    type_user = models.CharField(
+    class Meta:
+        ordering = ["id"]
+
+    email = models.EmailField()
+
+    role = models.CharField(
         max_length=20,
-        choices=userOptions.choices,
-        default=userOptions.Student,
+        choices=UserRoleChoice.choices,
+        default=UserRoleChoice.STUDENT,
     )
-    # Created_at = models.DateTimeField(auto_now_add=True)
+
+    status = models.CharField(
+        max_length=20,
+        choices=UserStatusChoice.choices,
+        default=UserStatusChoice.ACTIVE,
+    )
+
+    created_at = models.DateField(auto_now_add=True)
+    unblocked_date = models.DateField(null=True)
