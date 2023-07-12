@@ -10,4 +10,4 @@ class LendingsConfig(AppConfig):
         from users.scheduler import run_user_scheduler
 
         run_lending_scheduler()
-        un_user_scheduler()
+        run_user_scheduler()
